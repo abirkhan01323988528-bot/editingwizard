@@ -1,0 +1,310 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>EditingZone.net — Creative Studio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0b0c10;--surface:#13151b;--surface2:#191c24;--line:#292d38;--white:#f5f6fa;--muted:#9da3b2;--purple:#8b5cf6;--pink:#ec4899;--green:#34d399}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--white);font:15px 'DM Sans',Arial,sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}.hidden{display:none!important}
+nav{height:74px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 max(5%,calc((100% - 1240px)/2));background:#0b0c10ee;position:sticky;top:0;z-index:4;backdrop-filter:blur(12px)}
+.brand{font:700 24px 'Space Grotesk';letter-spacing:-1px}.brand b{color:#b79aff}.navright{display:flex;gap:10px;align-items:center}
+button,.button{border:0;border-radius:10px;padding:12px 16px;font-weight:700;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.primary{background:linear-gradient(110deg,#8b5cf6,#bd5bdf);color:white;box-shadow:0 7px 25px #8b5cf626}.ghost{background:#1b1e27;color:white;border:1px solid #303543}.danger{background:#3b2029;color:#ff9cb0}
+.wrap{max-width:1240px;margin:auto;padding:0 24px}.hero{padding:76px 0 64px;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}.hero:before{content:"";position:absolute;width:500px;height:400px;right:-70px;top:-140px;background:radial-gradient(ellipse,#6c3fc43b,transparent 70%);pointer-events:none}.eyebrow{color:#c0a8ff;font-weight:700;letter-spacing:2px;font-size:11px;text-transform:uppercase}.hero h1{font:700 clamp(42px,7vw,76px)/1.03 'Space Grotesk';letter-spacing:-3px;max-width:780px;margin:20px 0}.gradient{background:linear-gradient(95deg,#c4b5fd,#f0abfc,#f9a8d4);-webkit-background-clip:text;background-clip:text;color:transparent}.hero p{max-width:610px;color:var(--muted);font-size:17px;line-height:1.8}.heroactions{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:42px;max-width:650px}.stat{padding:15px;border:1px solid var(--line);background:#ffffff04;border-radius:12px}.stat strong{display:block;font:700 22px 'Space Grotesk'}.stat span{font-size:12px;color:var(--muted)}
+.section{padding:54px 0;border-bottom:1px solid var(--line)}.sectionhead{display:flex;justify-content:space-between;gap:20px;align-items:end;margin-bottom:24px}.sectionhead h2{font:700 30px 'Space Grotesk';margin:7px 0}.sectionhead p{color:var(--muted);margin:0}.servicegrid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px}.service{background:var(--surface);border:1px solid var(--line);border-radius:15px;padding:20px;transition:.2s}.service:hover{border-color:#8b5cf6;transform:translateY(-3px)}.serviceicon{font-size:25px;width:50px;height:50px;display:grid;place-items:center;border-radius:14px;background:#8b5cf620;margin-bottom:18px}.service h3{font-size:16px;margin:0 0 9px}.service p{color:var(--muted);font-size:13px;line-height:1.6;min-height:42px}.price{font:700 24px 'Space Grotesk';margin:17px 0 5px}.price small{font:400 12px 'DM Sans';color:var(--muted)}.service button{width:100%;margin-top:13px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:17px;padding:24px}.fields{display:grid;grid-template-columns:1fr 1fr;gap:16px}.field{display:flex;flex-direction:column;gap:8px}.field.full{grid-column:1/-1}label{font-size:13px;color:#d5d8e1;font-weight:700}input,select,textarea{width:100%;padding:13px 14px;background:#0e1016;border:1px solid #303543;border-radius:10px;color:white;outline:none}input:focus,select:focus,textarea:focus{border-color:#9b7aff}textarea{min-height:130px;resize:vertical;line-height:1.6}.hint{font-size:12px;color:var(--muted);line-height:1.6}.filebox{padding:16px;border:1px dashed #454b5b;border-radius:12px;background:#0e1016}.orderlayout{display:grid;grid-template-columns:1.25fr .75fr;gap:20px}.pricebox{background:linear-gradient(145deg,#21183b,#171923);border:1px solid #46356c;border-radius:15px;padding:22px}.pricebox h3{margin:0 0 10px}.total{font:700 36px 'Space Grotesk';margin:10px 0}.warning{background:#2c2418;border:1px solid #59462a;color:#f4d5a0;padding:12px;border-radius:10px;font-size:12px;line-height:1.6}.success{color:#6ee7b7}.error{color:#fda4af}.muted{color:var(--muted)}
+.dashboard{padding:44px 0}.dashhead{display:flex;justify-content:space-between;gap:20px;align-items:center;margin-bottom:22px}.dashhead h2{font:700 30px 'Space Grotesk';margin:0}.orderlist{display:grid;gap:14px}.ordercard{background:var(--surface);border:1px solid var(--line);border-radius:15px;padding:20px}.orderrow{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}.ordercard h3{margin:0 0 8px}.badge{display:inline-flex;border-radius:99px;padding:6px 10px;background:#302646;color:#d6c6ff;font-size:11px;font-weight:700}.badge.green{background:#12352b;color:#7aefc0}.badge.amber{background:#3b2c17;color:#fbd38d}.ordercard p{color:var(--muted);line-height:1.6;font-size:13px}.orderactions{display:flex;gap:9px;flex-wrap:wrap;margin-top:12px}
+.adminstats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}.adminstat{background:var(--surface);border:1px solid var(--line);border-radius:13px;padding:18px}.adminstat strong{display:block;font:700 25px 'Space Grotesk'}.adminstat span{color:var(--muted);font-size:12px}
+footer{padding:28px 0;color:var(--muted);font-size:12px}
+.modalback{position:fixed;inset:0;background:#000b;z-index:20;display:none;align-items:center;justify-content:center;padding:18px}.modal{width:min(500px,100%);max-height:90vh;overflow:auto;background:#151821;border:1px solid #34394a;border-radius:18px;padding:25px;box-shadow:0 25px 90px #0009}.modalhead{display:flex;justify-content:space-between;gap:15px;align-items:center;margin-bottom:20px}.modal h2{font:700 25px 'Space Grotesk';margin:0}.xbtn{padding:7px 10px;background:#282d39;color:white}.tabs{display:flex;background:#0c0e14;border:1px solid var(--line);border-radius:10px;padding:4px;gap:4px;margin-bottom:18px}.tabs button{flex:1;background:transparent;color:var(--muted)}.tabs button.active{background:#29213e;color:white}.formstack{display:grid;gap:13px}.formstack .field{gap:7px}.fullbtn{width:100%;margin-top:5px}.modalnote{color:var(--muted);font-size:12px;line-height:1.6}.notice{padding:12px;border-radius:10px;background:#171d2a;color:#c8d2e5;font-size:13px;line-height:1.6;margin:12px 0}.toast{position:fixed;bottom:22px;right:22px;max-width:360px;background:#202431;border:1px solid #3c4354;padding:14px 18px;border-radius:12px;z-index:50;box-shadow:0 12px 40px #0008}
+@media(max-width:900px){.servicegrid{grid-template-columns:repeat(2,1fr)}.orderlayout{grid-template-columns:1fr}.hero{padding:55px 0}.hero h1{letter-spacing:-2px}}
+@media(max-width:560px){nav{padding:0 16px;height:65px}.brand{font-size:21px}.navright .ghost{display:none}.wrap{padding:0 16px}.servicegrid{grid-template-columns:1fr 1fr;gap:9px}.service{padding:13px}.service p{min-height:60px}.service h3{font-size:14px}.price{font-size:21px}.fields{grid-template-columns:1fr}.field.full{grid-column:auto}.stats{gap:7px}.stat{padding:10px}.stat strong{font-size:18px}.stat span{font-size:10px}.sectionhead{align-items:start;flex-direction:column}.adminstats{grid-template-columns:1fr}.hero p{font-size:15px}}
+</style>
+</head>
+<body>
+<nav>
+ <a href="#" class="brand" style="color:white;text-decoration:none">EDITING<b>ZONE.NET</b></a>
+ <div class="navright">
+  <button class="ghost" onclick="openAuth('login')">Client login</button>
+  <button class="primary" id="navMain" onclick="openAuth('register')">Start a project ↗</button>
+  <button class="ghost hidden" id="dashboardBtn" onclick="showDashboard()">My dashboard</button>
+  <button class="ghost hidden" id="logoutBtn" onclick="logout()">Log out</button>
+ </div>
+</nav>
+
+<div id="homeView">
+<section class="hero"><div class="wrap">
+ <div class="eyebrow">Independent creative studio · Bangladesh</div>
+ <h1>Make your content<br><span class="gradient">impossible to ignore.</span></h1>
+ <p>Photo retouching, gaming edits, reels and creator visuals — crafted with intention, polished frame by frame.</p>
+ <div class="heroactions">
+  <button class="primary" onclick="document.getElementById('services').scrollIntoView({behavior:'smooth'})">Explore services ↓</button>
+  <button class="ghost" onclick="openAuth('login')">Track an order</button>
+ </div>
+ <div class="stats">
+  <div class="stat"><strong>01—01</strong><span>Personalized edits</span></div>
+  <div class="stat"><strong>2–3 days</strong><span>Estimated turnaround</span></div>
+  <div class="stat"><strong>৳ BDT</strong><span>Clear upfront pricing</span></div>
+ </div>
+</div></section>
+
+<section class="section" id="services"><div class="wrap">
+ <div class="sectionhead"><div><div class="eyebrow">What we do</div><h2>Creative services</h2><p>Starting prices in Bangladeshi taka. Final cost changes with quality and quantity.</p></div></div>
+ <div class="servicegrid" id="serviceGrid"></div>
+</div></section>
+
+<section class="section"><div class="wrap">
+ <div class="sectionhead"><div><div class="eyebrow">Simple process</div><h2>From brief to final edit.</h2></div></div>
+ <div class="servicegrid">
+  <div class="service"><div class="serviceicon">01</div><h3>Tell us the vision</h3><p>Choose a service and describe the style, references, duration and details.</p></div>
+  <div class="service"><div class="serviceicon">02</div><h3>Submit payment reference</h3><p>Pay via Nagad and provide the transaction reference for manual review.</p></div>
+  <div class="service"><div class="serviceicon">03</div><h3>Request accepted</h3><p>Admin checks the payment and accepts the job. Typical turnaround is 2–3 days.</p></div>
+  <div class="service"><div class="serviceicon">04</div><h3>Receive your edit</h3><p>Track progress in your dashboard. Final delivery details will be shared there.</p></div>
+ </div>
+</div></section>
+
+<section class="section"><div class="wrap">
+ <div class="sectionhead"><div><div class="eyebrow">Start here</div><h2>Have a project in mind?</h2><p>Create an account to submit a brief and track your request.</p></div>
+ <button class="primary" onclick="openAuth('register')">Create account ↗</button></div>
+ <div class="warning">Security note: use a unique EditingZone.net password — never your Gmail password. We will never ask for your email password or verification code.</div>
+</div></section>
+</div>
+
+<section class="dashboard hidden" id="clientDashboard"><div class="wrap">
+ <div class="dashhead"><div><div class="eyebrow">Your workspace</div><h2>My orders</h2><p class="muted" id="welcome"></p></div><button class="primary" onclick="showOrderForm()">+ New order</button></div>
+ <div class="notice">After you submit a Nagad transaction reference, your order stays in <b>Payment review</b> until admin checks it. Once accepted, your status shows <b>Editing request accepted</b>. Delivery estimate: 2–3 days after acceptance.</div>
+ <div class="orderlist" id="clientOrders"></div>
+ <div class="panel hidden" id="orderFormPanel" style="margin-top:22px">
+  <div class="sectionhead"><div><div class="eyebrow">New request</div><h2 style="font:700 25px 'Space Grotesk'">Build your order</h2><p>Tell us exactly what result you want before uploading.</p></div></div>
+  <form id="orderForm" class="orderlayout" enctype="multipart/form-data">
+   <div class="fields">
+    <div class="field"><label for="orderUsername">Your account username</label><input id="orderUsername" name="username" required readonly></div>
+    <div class="field"><label for="service">Editing service</label><select id="service" name="service" required></select></div>
+    <div class="field"><label for="quality">Quality / complexity</label><select id="quality" name="quality"><option value="standard">Standard — 1×</option><option value="high">High quality — 1.5×</option><option value="premium">Premium — 2×</option></select></div>
+    <div class="field"><label for="quantity">Quantity</label><input id="quantity" name="quantity" type="number" min="1" max="10" value="1" required></div>
+    <div class="field full"><label for="brief">Required edit description *</label><textarea id="brief" name="brief" minlength="20" maxlength="2000" required placeholder="Describe the exact result you want: style, colours, transitions, music, length, text, references, output size, deadline, etc. At least 20 characters."></textarea><span class="hint">A clear brief helps avoid revisions. Mention the final look and any reference links.</span></div>
+    <div class="field full"><label for="files">Upload source photo/video (optional, up to 5 files)</label><div class="filebox"><input id="files" name="files" type="file" multiple accept="image/jpeg,image/png,image/webp,image/gif,video/mp4,video/webm,video/quicktime,application/pdf"><p class="hint">JPG, PNG, WEBP, GIF, MP4, WEBM, MOV or PDF. Up to 150 MB per file. Uploads are private to your order/admin.</p><div id="fileNames" class="hint"></div></div></div>
+   </div>
+   <aside>
+    <div class="pricebox"><h3>Order estimate</h3><div class="muted" id="priceService">Photo Editing — Basic</div><div class="total" id="priceTotal">৳100</div><div class="hint">Estimate = service base × quality × quantity. Confirm the amount before sending Nagad payment.</div><hr style="border:0;border-top:1px solid #403653;margin:20px 0">
+     <div class="field"><label>Payment method</label><div style="font-weight:700">Nagad only</div><div id="nagadNumber" style="font:700 20px 'Space Grotesk';color:#e7d8ff">01919610937</div><button type="button" class="ghost" onclick="copyNagad()">Copy Nagad number</button></div>
+     <p class="hint">First submit the order. Then pay the exact amount using Nagad and enter the transaction reference in the popup. Payment is manually checked by admin.</p>
+     <button class="primary fullbtn" id="submitOrderBtn" type="submit">Submit brief & continue →</button>
+    </div>
+   </aside>
+  </form>
+ </div>
+</div></section>
+
+<section class="dashboard hidden" id="adminDashboard"><div class="wrap">
+ <div class="dashhead"><div><div class="eyebrow">Studio control room</div><h2>Admin dashboard</h2><p class="muted">Check transaction references before accepting any payment.</p></div><button class="ghost" onclick="loadAdmin()">↻ Refresh</button></div>
+ <div class="adminstats"><div class="adminstat"><strong id="statOrders">0</strong><span>Total orders</span></div><div class="adminstat"><strong id="statPending">0</strong><span>Awaiting review / pending</span></div><div class="adminstat"><strong id="statRevenue">৳0</strong><span>Accepted / verified order value</span></div></div>
+ <div class="notice">“Received / Accept request” marks the transaction as manually checked and changes the client status to <b>Editing request accepted</b>. Do not click it until you verify the payment in Nagad.</div>
+ <div class="orderlist" id="adminOrders"></div>
+</div></section>
+
+<footer><div class="wrap" style="display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap"><span>© 2026 EditingZone.net · Creative work, made carefully.</span><span>Independent service · Nagad payments manually verified</span><button class="ghost" style="padding:7px 10px;font-size:11px" onclick="openAdmin()">Admin login</button></div></footer>
+
+<div class="modalback" id="authModal" onclick="backdropClose(event,'authModal')">
+ <div class="modal"><div class="modalhead"><h2 id="authTitle">Welcome back</h2><button class="xbtn" onclick="closeModal('authModal')">✕</button></div>
+  <div class="tabs"><button id="loginTab" class="active" onclick="setAuthMode('login')">Sign in</button><button id="registerTab" onclick="setAuthMode('register')">Create account</button></div>
+  <form id="authForm" class="formstack">
+   <div class="field hidden" id="usernameField"><label for="authUsername">Display username</label><input id="authUsername" autocomplete="nickname" maxlength="24" placeholder="Your username"></div>
+   <div class="field"><label for="authEmail">Email address</label><input id="authEmail" type="email" autocomplete="email" required placeholder="you@example.com"></div>
+   <div class="field"><label for="authPassword">EditingZone.net password</label><input id="authPassword" type="password" minlength="8" autocomplete="current-password" required placeholder="At least 8 characters"></div>
+   <div class="warning">Remember your EditingZone.net username, email and password. Use a unique password — do not use your Gmail password. Password reset is not yet built into this starter.</div>
+   <p id="authError" class="error"></p><button class="primary fullbtn" id="authSubmit" type="submit">Sign in</button>
+  </form>
+  <p class="modalnote">Your email is used as your login ID and contact address. This site does not sign in to Gmail or read your inbox.</p>
+ </div>
+</div>
+
+<div class="modalback" id="paymentModal" onclick="backdropClose(event,'paymentModal')">
+ <div class="modal"><div class="modalhead"><h2>Submit payment reference</h2><button class="xbtn" onclick="closeModal('paymentModal')">✕</button></div>
+  <div class="notice">Order <b id="paymentOrderId"></b> is created. Pay <b id="paymentAmount"></b> to this Nagad number, then enter the transaction reference below.</div>
+  <div class="pricebox"><div class="muted">Send payment to</div><div class="total" id="paymentNagad" style="font-size:28px">01919610937</div><button class="ghost" onclick="copyNagad()">Copy number</button></div>
+  <form id="paymentForm" class="formstack" style="margin-top:16px"><div class="field"><label for="paymentRef">Nagad transaction reference / TrxID</label><input id="paymentRef" required minlength="4" maxlength="100" placeholder="Enter transaction reference"></div><p class="hint">A reference is not automatic proof of payment. Admin will manually verify it.</p><p id="paymentError" class="error"></p><button class="primary fullbtn" type="submit">Submit for payment review</button></form>
+ </div>
+</div>
+<div id="toast" class="toast hidden"></div>
+
+<script>
+let config, currentUser=null, currentOrderId=null, authMode='login', serviceCatalog={};
+const $=id=>document.getElementById(id);
+const money=n=>'৳'+Number(n||0).toLocaleString('en-BD');
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+async function api(url,opts={}) {
+ const headers=opts.headers||{};
+ if(opts.body && !(opts.body instanceof FormData)) headers['Content-Type']='application/json';
+ const r=await fetch(url,{credentials:'same-origin',...opts,headers});
+ const data=await r.json().catch(()=>({error:'Unexpected server response'}));
+ if(!r.ok)throw new Error(data.error||'Request failed');
+ return data;
+}
+function toast(msg){$('toast').textContent=msg;$('toast').classList.remove('hidden');setTimeout(()=>$('toast').classList.add('hidden'),4200)}
+function openAuth(mode='login'){setAuthMode(mode);$('authModal').style.display='flex';$('authError').textContent=''}
+function closeModal(id){$(id).style.display='none'}
+function backdropClose(e,id){if(e.target.id===id)closeModal(id)}
+function setAuthMode(mode){
+ authMode=mode;$('loginTab').classList.toggle('active',mode==='login');$('registerTab').classList.toggle('active',mode==='register');
+ $('usernameField').classList.toggle('hidden',mode!=='register');$('authUsername').required=mode==='register';
+ $('authTitle').textContent=mode==='login'?'Welcome back':'Create your account';$('authSubmit').textContent=mode==='login'?'Sign in':'Create account';
+ $('authPassword').autocomplete=mode==='login'?'current-password':'new-password';
+}
+async function init(){
+ try{
+  config=await api('/api/config');serviceCatalog=config.services;
+  $('nagadNumber').textContent=config.nagadNumber;
+  $('paymentNagad').textContent=config.nagadNumber;
+  renderServices();renderServiceSelect();
+  const me=await api('/api/me');
+  if(me.role==='client'){currentUser=me.user;showClient();}
+  else if(me.role==='admin'){showAdmin();}
+  else showHome();
+ }catch(e){toast(e.message)}
+}
+function renderServices(){
+ const icons=['✦','◈','▣','⌁','▶','⚡','▤','✧'];
+ $('serviceGrid').innerHTML=Object.entries(serviceCatalog).map(([key,s],i)=>`<article class="service"><div class="serviceicon">${icons[i%icons.length]}</div><h3>${esc(s.name)}</h3><p>${s.base<150?'Clean, fast, straightforward editing.':'Polished results with extra detail and creative finishing.'}</p><div class="price">${money(s.base)} <small>/ unit</small></div><div class="hint">Starting price · BDT</div><button class="primary" onclick="startOrder('${key}')">Choose service ↗</button></article>`).join('');
+}
+function renderServiceSelect(){
+ $('service').innerHTML=Object.entries(serviceCatalog).map(([k,s])=>`<option value="${k}">${esc(s.name)} — ${money(s.base)}</option>`).join('');
+ ['service','quality','quantity'].forEach(id=>$(id).addEventListener('change',updatePrice));
+ updatePrice();
+}
+function updatePrice(){
+ if(!serviceCatalog[$('service').value])return;
+ const base=serviceCatalog[$('service').value].base;
+ const q={standard:1,high:1.5,premium:2}[$('quality').value]||1;
+ const qty=Math.max(1,Math.min(10,Number($('quantity').value)||1));
+ $('priceTotal').textContent=money(Math.round(base*q*qty));
+ $('priceService').textContent=serviceCatalog[$('service').value].name+' · '+$('quality').selectedOptions[0].text+' · ×'+qty;
+}
+function startOrder(key){
+ if(!currentUser){openAuth('login');toast('Sign in or create an account to place an order.');return}
+ showClient();$('orderFormPanel').classList.remove('hidden');$('service').value=key;updatePrice();$('orderFormPanel').scrollIntoView({behavior:'smooth'});
+}
+function showHome(){
+ $('homeView').classList.remove('hidden');$('clientDashboard').classList.add('hidden');$('adminDashboard').classList.add('hidden');
+ $('dashboardBtn').classList.add('hidden');$('logoutBtn').classList.add('hidden');$('navMain').classList.remove('hidden');
+}
+function showClient(){
+ $('homeView').classList.add('hidden');$('adminDashboard').classList.add('hidden');$('clientDashboard').classList.remove('hidden');
+ $('dashboardBtn').classList.remove('hidden');$('logoutBtn').classList.remove('hidden');$('navMain').classList.add('hidden');
+ $('welcome').textContent=`Signed in as ${currentUser.username} · ${currentUser.email}`;
+ $('orderUsername').value=currentUser.username;$('orderFormPanel').classList.add('hidden');
+ loadClientOrders();window.scrollTo({top:0,behavior:'smooth'});
+}
+function showDashboard(){if(currentUser)showClient()}
+function showOrderForm(){$('orderFormPanel').classList.remove('hidden');$('orderFormPanel').scrollIntoView({behavior:'smooth'})}
+const statusClass=s=>s==='Completed'||s==='Editing request accepted'?'green':s==='Payment review'||s==='Editing'?'amber':'';
+function orderCard(o,admin=false){
+ const files=o.files||[], links=o.driveLinks||[];
+ const fileHtml=files.length?`<div class="hint"><b>Files:</b> ${files.map(f=>esc(f.originalName)).join(', ')}</div>`:'<div class="hint">No source files attached.</div>';
+ const driveHtml=links.length?`<div class="hint">Drive: ${links.map(l=>`<a style="color:#c4b5fd" href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.name)}</a>`).join(' · ')}</div>`:'';
+ const brief=esc(o.brief);
+ let actions='';
+ if(admin){
+  actions=`<div class="orderactions">
+   <button class="primary" onclick="adminStatus('${o.id}','Editing request accepted')">✓ Received / Accept request</button>
+   <button class="ghost" onclick="adminStatus('${o.id}','Editing')">Mark editing</button>
+   <button class="ghost" onclick="adminStatus('${o.id}','Completed')">Mark completed</button>
+   <button class="danger" onclick="adminStatus('${o.id}','Payment rejected')">Reject payment</button>
+  </div>`;
+  if(o.paymentRef)actions+=`<div class="hint" style="margin-top:10px">Transaction reference: <b>${esc(o.paymentRef)}</b></div>`;
+  if(files.length)actions+=`<div class="orderactions">${files.map(f=>`<a class="button ghost" href="/api/admin/files/${encodeURIComponent(f.filename)}">Download ${esc(f.originalName)}</a>`).join('')}</div>`;
+ }else{
+  if(o.status==='Awaiting payment')actions=`<div class="orderactions"><button class="primary" onclick="openPayment('${o.id}',${o.price})">Submit Nagad reference</button></div>`;
+ }
+ return `<article class="ordercard">
+  <div class="orderrow"><div><h3>${esc(o.service)}</h3><div class="hint">Order #${esc(o.id)} · ${new Date(o.createdAt).toLocaleString()}</div></div><div style="text-align:right"><div style="font:700 23px 'Space Grotesk'">${money(o.price)}</div><span class="badge ${statusClass(o.status)}">${esc(o.status)}</span></div></div>
+  <p><b>Client:</b> ${esc(o.username)} · ${esc(o.email)}<br><b>Quality:</b> ${esc(o.quality)} · <b>Quantity:</b> ${o.quantity}<br><b>Payment:</b> ${esc(o.paymentStatus)}${o.paymentRef?' · Ref: '+esc(o.paymentRef):''}</p>
+  <p><b>Requested result:</b><br>${brief}</p>${fileHtml}${driveHtml}
+  ${o.status==='Editing request accepted'?'<div class="notice"><b class="success">Editing request accepted.</b> Estimated delivery: 2–3 days after acceptance.</div>':''}
+  ${o.status==='Completed'?'<div class="notice"><b class="success">Your edit is marked completed.</b> Check the delivery note or contact the studio for the final file.</div>':''}
+  ${o.adminNote?`<p><b>Admin note:</b> ${esc(o.adminNote)}</p>`:''}${actions}
+ </article>`;
+}
+async function loadClientOrders(){
+ try{const d=await api('/api/orders');$('clientOrders').innerHTML=d.orders.length?d.orders.map(o=>orderCard(o)).join(''):'<div class="panel muted">No orders yet. Choose a service to start your first project.</div>'}
+ catch(e){toast(e.message)}
+}
+async function loadAdmin(){
+ try{
+  const d=await api('/api/admin/orders');const orders=d.orders;
+  $('statOrders').textContent=orders.length;
+  $('statPending').textContent=orders.filter(o=>['Awaiting payment','Payment review'].includes(o.status)).length;
+  $('statRevenue').textContent=money(orders.filter(o=>['Editing request accepted','Editing','Completed'].includes(o.status)).reduce((n,o)=>n+o.price,0));
+  $('adminOrders').innerHTML=orders.length?orders.map(o=>orderCard(o,true)).join(''):'<div class="panel muted">No orders yet.</div>';
+ }catch(e){toast(e.message)}
+}
+function showAdmin(){
+ $('homeView').classList.add('hidden');$('clientDashboard').classList.add('hidden');$('adminDashboard').classList.remove('hidden');
+ $('dashboardBtn').classList.add('hidden');$('logoutBtn').classList.remove('hidden');$('navMain').classList.add('hidden');
+ loadAdmin();window.scrollTo({top:0,behavior:'smooth'});
+}
+function openAdmin(){
+ const username=prompt('Admin username');
+ if(username===null)return;
+ const password=prompt('Admin password');
+ if(password===null)return;
+ api('/api/admin/login',{method:'POST',body:JSON.stringify({username,password})})
+ .then(()=>showAdmin()).catch(e=>toast(e.message));
+}
+async function adminStatus(id,status){
+ const labels={'Editing request accepted':'Received / Accept request','Editing':'Mark editing','Completed':'Mark completed','Payment rejected':'Reject payment'};
+ if(status==='Editing request accepted'&&!confirm('Only continue if you personally verified this Nagad payment. Accept this request?'))return;
+ try{await api('/api/admin/orders/'+id+'/status',{method:'POST',body:JSON.stringify({status})});toast('Order updated.');loadAdmin()}
+ catch(e){toast(e.message)}
+}
+function openPayment(id,amount){
+ currentOrderId=id;$('paymentOrderId').textContent='#'+id;$('paymentAmount').textContent=money(amount);
+ $('paymentRef').value='';$('paymentError').textContent='';$('paymentModal').style.display='flex';
+}
+$('paymentForm').addEventListener('submit',async e=>{
+ e.preventDefault();$('paymentError').textContent='';
+ try{
+  const d=await api('/api/orders/'+currentOrderId+'/payment',{method:'POST',body:JSON.stringify({paymentRef:$('paymentRef').value.trim()})});
+  closeModal('paymentModal');toast('Reference submitted. '+d.driveMessage);
+  await loadClientOrders();
+ }catch(err){$('paymentError').textContent=err.message}
+});
+$('orderForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ if(!$('orderForm').reportValidity())return;
+ const btn=$('submitOrderBtn');btn.disabled=true;btn.textContent='Submitting…';
+ try{
+  const form=new FormData($('orderForm'));
+  const d=await api('/api/orders',{method:'POST',body:form});
+  toast('Order created. Next, submit your Nagad transaction reference.');
+  $('orderForm').reset();$('orderUsername').value=currentUser.username;updatePrice();
+  $('orderFormPanel').classList.add('hidden');await loadClientOrders();openPayment(d.order.id,d.order.price);
+ }catch(err){toast(err.message)}
+ finally{btn.disabled=false;btn.textContent='Submit brief & continue →'}
+});
+$('files').addEventListener('change',()=>{
+ const fs=[...$('files').files];$('fileNames').textContent=fs.length?fs.map(f=>`${f.name} (${(f.size/1024/1024).toFixed(1)} MB)`).join(' · '):'';
+});
+$('authForm').addEventListener('submit',async e=>{
+ e.preventDefault();$('authError').textContent='';
+ const body={email:$('authEmail').value, password:$('authPassword').value};
+ if(authMode==='register'){body.username=$('authUsername').value.trim()}
+ try{
+  const d=await api(authMode==='register'?'/api/register':'/api/login',{method:'POST',body:JSON.stringify(body)});
+  currentUser=d.user;closeModal('authModal');toast(authMode==='register'?'Account created. Keep your login details safe.':'Signed in successfully.');showClient();
+ }catch(err){$('authError').textContent=err.message}
+});
+async function logout(){
+ try{await api('/api/logout',{method:'POST'});currentUser=null;showHome();toast('Signed out.')}
+ catch(e){toast(e.message)}
+}
+async function copyNagad(){
+ try{await navigator.clipboard.writeText(config.nagadNumber);toast('Nagad number copied.')}
+ catch(e){prompt('Copy Nagad number:',config.nagadNumber)}
+}
+init();
+</script>
+</body></html>
